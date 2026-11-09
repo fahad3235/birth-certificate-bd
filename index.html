@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Birth Certificate BD - Bangladesh birth registration fee calculator and guide</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1 id="title" data-i18n="title">Birth Certificate BD</h1>
+    <p class="subtitle" data-i18n="subtitle">Bangladesh birth registration - fees, steps and documents, offline, in English and Bangla.</p>
+  </div>
+  <button id="langBtn" type="button">Bangla</button>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button id="tabbtn-calc" class="tab active" type="button" data-i18n="tabCalc">Calculator</button>
+  <button id="tabbtn-chart" class="tab" type="button" data-i18n="tabChart">Fee chart</button>
+  <button id="tabbtn-guides" class="tab" type="button" data-i18n="tabGuides">Guides</button>
+  <button id="tabbtn-check" class="tab" type="button" data-i18n="tabCheck">Checklists</button>
+  <button id="tabbtn-quiz" class="tab" type="button" data-i18n="tabQuiz">Quiz</button>
+  <button id="tabbtn-data" class="tab" type="button" data-i18n="tabData">My data</button>
+</nav>
+
+<main>
+  <!-- CALCULATOR -->
+  <section id="tab-calc" class="panel">
+    <div class="card">
+      <h2 data-i18n="calcTitle">Fee calculator</h2>
+      <p class="hint" data-i18n="calcHint">Enter the date of birth and the date you will apply. The fee follows the Birth and Death Registration Rules, 2018.</p>
+      <label for="dobInput" data-i18n="dobLabel">Date of birth</label>
+      <input id="dobInput" type="date" min="1900-01-01" max="2100-12-31">
+      <label for="appDateInput" data-i18n="appDateLabel">Application date</label>
+      <input id="appDateInput" type="date" min="1900-01-01" max="2100-12-31">
+      <button id="calcBtn" class="primary" type="button" data-i18n="calculate">Calculate fee</button>
+      <p id="calcError" class="error" hidden></p>
+    </div>
+
+    <div id="resultBox" class="card" hidden>
+      <h2 data-i18n="resFee">Registration fee</h2>
+      <p id="resFee" class="big"></p>
+      <p><strong id="resTier"></strong></p>
+      <table class="kv"><tbody>
+        <tr><td data-i18n="resDays">Days since birth</td><td id="resDays"></td></tr>
+        <tr><td data-i18n="resDeadline">Free-window deadline (birth + 45 days)</td><td id="resDeadline"></td></tr>
+        <tr><td data-i18n="resAge">Current age</td><td id="resAge"></td></tr>
+        <tr><td data-i18n="resStatus">Status</td><td><span id="resStatus" class="badge"></span></td></tr>
+      </tbody></table>
+      <p id="feeNote" class="note" data-i18n="feeNote">Fees are reported from the Birth and Death Registration Rules, 2018. Verify the current fee on bdris.gov.bd before paying.</p>
+    </div>
+  </section>
+
+  <!-- FEE CHART -->
+  <section id="tab-chart" class="panel" hidden>
+    <div class="card">
+      <h2 data-i18n="chartTitle">Fee chart (Rules, 2018)</h2>
+      <p class="hint" data-i18n="chartHint">Domestic fees from the Birth and Death Registration Rules, 2018. Tap a registration row to load a sample date into the calculator.</p>
+      <table class="data">
+        <thead><tr>
+          <th data-i18n="colWhen">When / what</th>
+          <th data-i18n="colFee">Fee (home)</th>
+          <th data-i18n="colAbroad">Fee (abroad)</th>
+          <th data-i18n="colNote">Note</th>
+        </tr></thead>
+        <tbody id="feeBody"></tbody>
+      </table>
+      <p class="note" data-i18n="chartNote">Fees are reported - verify on bdris.gov.bd before paying.</p>
+    </div>
+  </section>
+
+  <!-- GUIDES -->
+  <section id="tab-guides" class="panel" hidden>
+    <div class="card">
+      <h2 data-i18n="guidesTitle">Step-by-step guides</h2>
+      <p class="hint" data-i18n="guidesHint">Tick each step as you finish it. Your progress is saved on this device.</p>
+      <div id="guidesWrap"></div>
+    </div>
+  </section>
+
+  <!-- CHECKLISTS -->
+  <section id="tab-check" class="panel" hidden>
+    <div class="card">
+      <h2 data-i18n="checkTitle">Document checklists</h2>
+      <p class="hint" data-i18n="checkHint">Tick off each document as you gather it. Progress is saved on this device.</p>
+      <p><strong id="overallPct"></strong></p>
+      <div class="bar"><div id="overallFill" class="barfill" style="width:0%"></div></div>
+      <div id="checksWrap"></div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="tab-quiz" class="panel" hidden>
+    <div class="card">
+      <h2 data-i18n="quizTitle">Test yourself - 10 questions</h2>
+      <p class="hint" data-i18n="quizHint">Only facts from the official fee rules and process. Your best score is saved on this device.</p>
+      <div id="quizStartBox">
+        <p id="quizBestLine" class="hint"></p>
+        <button id="quizStartBtn" class="primary" type="button" data-i18n="quizStart">Start quiz</button>
+      </div>
+      <div id="quizBox" hidden>
+        <p id="quizQ" class="q"></p>
+        <div id="quizOpts" class="opts"></div>
+        <p id="quizFeedback" class="note" hidden></p>
+        <button id="quizNext" class="primary" type="button" hidden>Next question</button>
+      </div>
+      <div id="quizResult" hidden>
+        <h3 id="quizDoneTitle"></h3>
+        <p id="quizScoreText" class="big"></p>
+        <p id="quizBestLine2" class="hint"></p>
+        <button id="quizRestartBtn" class="primary" type="button" data-i18n="quizRestart">Play again</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MY DATA -->
+  <section id="tab-data" class="panel" hidden>
+    <div class="card">
+      <h2 data-i18n="dataTitle">My data</h2>
+      <p class="hint" data-i18n="dataHint">Everything is stored only on this device. Export a backup, import it on another device, or erase it all.</p>
+      <p id="dataSummary"></p>
+      <p id="dataEmpty" class="hint" data-i18n="dataEmpty" hidden>No progress saved yet - guides, checklists and quiz scores will appear here once you use them.</p>
+      <div class="row">
+        <button id="exportBtn" type="button" data-i18n="exportBtn">Export JSON</button>
+        <button id="importBtn" type="button" data-i18n="importBtn">Import JSON</button>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </div>
+      <p id="importMsg" class="ok" hidden></p>
+      <div class="row">
+        <input id="eraseInput" type="text" maxlength="10" data-i18n-ph="eraseConfirm" placeholder="Type DELETE to erase all saved data">
+        <button id="eraseBtn" class="danger" type="button" data-i18n="eraseBtn">Erase all</button>
+      </div>
+      <p id="eraseMsg" class="ok" hidden></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p data-i18n="footer">Unofficial guide - not a government app. Fees and steps are reported from the Birth and Death Registration Rules, 2018 and the Birth and Death Registration Act, 2004. Always verify on bdris.gov.bd before paying or applying. Offline tool - no network requests, nothing leaves your device.</p>
+</footer>
+
+<script src="js/logic.js"></script>
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
